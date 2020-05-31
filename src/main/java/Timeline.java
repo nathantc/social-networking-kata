@@ -14,6 +14,6 @@ public class Timeline {
     }
 
     public void publish(String text) {
-        messages.add(new Message(text));
+        messages.add(0, new Message(text));
     }
 }
