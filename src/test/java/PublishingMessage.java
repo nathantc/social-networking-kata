@@ -1,3 +1,4 @@
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
@@ -6,16 +7,21 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class PublishingMessage {
 
+    private Timeline timeline;
+
+    @Before
+    public void before() {
+        timeline = new Timeline();
+    }
+
     @Test
     public void timelineInitializedWithZeroMessages() {
-        Timeline timeline = new Timeline();
         List<Message> messages = timeline.getMessage();
         assertThat(messages.size()).isEqualTo(0);
     }
 
     @Test
     public void timelineReturnsPublishedMessage() {
-        Timeline timeline = new Timeline();
         String text = "I love the weather today.";
         timeline.publish(text);
 
