@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class Timeline {
@@ -14,6 +15,6 @@ public class Timeline {
     }
 
     public void publish(String text) {
-        messages.add(0, new Message(text));
+        messages.add(0, new Message(text, SystemCalendar.currentTimeMillis()));
     }
 }
