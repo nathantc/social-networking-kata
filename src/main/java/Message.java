@@ -1,3 +1,5 @@
+import com.sun.org.apache.xpath.internal.objects.XString;
+
 import java.util.concurrent.TimeUnit;
 
 public class Message {
@@ -16,5 +18,9 @@ public class Message {
 
     public long getElapsedMinutes() {
         return TimeUnit.MILLISECONDS.toMinutes(SystemCalendar.currentTimeMillis() - timeStamp);
+    }
+
+    public String getSummary() {
+        return String.format("%s (%s minutes ago)", getText(), getElapsedMinutes());
     }
 }

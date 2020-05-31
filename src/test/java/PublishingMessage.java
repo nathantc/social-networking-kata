@@ -9,6 +9,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class PublishingMessage {
 
     private Timeline timeline;
+
     private Calendar testCalendar;
 
     @Before
@@ -48,16 +49,16 @@ public class PublishingMessage {
     }
 
     @Test
-    public void messagesReturnElapsedMinutesFromPublishedDate() {
+    public void summaryContainsMessageTextAndElapsedTime() {
         setElapsedMinutes(15);
-        publishMessage("??");
-        setElapsedMinutes(25);
         publishMessage("Are you going to the game?");
+        setElapsedMinutes(25);
+        publishMessage("??");
 
         setElapsedMinutes(30);
         List<Message> messages = getPublishedMessages();
-        assertThat(messages.get(0).getElapsedMinutes()).isEqualTo(5);
-        assertThat(messages.get(1).getElapsedMinutes()).isEqualTo(15);
+        assertThat(messages.get(0).getSummary()).isEqualTo("?? (5 minutes ago)");
+        assertThat(messages.get(1).getSummary()).isEqualTo("Are you going to the game? (15 minutes ago)");
     }
 
     private void publishMessage(String messageText1) {
