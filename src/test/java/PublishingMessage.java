@@ -7,14 +7,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class PublishingMessage {
 
     @Test
-    public void timelineReturnListOfMessages() {
+    public void timelineInitializedWithZeroMessages() {
         Timeline timeline = new Timeline();
         List<Message> messages = timeline.getMessage();
         assertThat(messages.size()).isEqualTo(0);
     }
 
     @Test
-    public void test() {
+    public void timelineReturnsPublishedMessage() {
         Timeline timeline = new Timeline();
         String text = "I love the weather today.";
         timeline.publish(text);
