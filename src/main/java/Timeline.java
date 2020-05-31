@@ -1,20 +1,21 @@
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 public class Timeline {
 
-    private ArrayList<Message> messages;
+    private String owner;
+    private List<Message> timelineData;
 
-    public Timeline() {
-        messages = new ArrayList();
+    public Timeline(String owner, List<Message> timelineData) {
+        this.owner = owner;
+        this.timelineData = timelineData;
     }
 
-    public List<Message> getMessages() {
-        return messages;
+    public List<Message> getTimelineData() {
+        return new ArrayList<>(timelineData);
     }
 
-    public void publish(String text) {
-        messages.add(0, new Message(text, SystemCalendar.currentTimeMillis()));
+    public String getOwner() {
+        return owner;
     }
 }

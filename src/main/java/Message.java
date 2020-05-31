@@ -1,5 +1,3 @@
-import com.sun.org.apache.xpath.internal.objects.XString;
-
 import java.util.concurrent.TimeUnit;
 
 public class Message {
@@ -7,9 +5,9 @@ public class Message {
     private String text;
     private long timeStamp;
 
-    public Message(String text, long timeStamp) {
+    public Message(String text) {
         this.text = text;
-        this.timeStamp = timeStamp;
+        this.timeStamp = SystemCalendar.getInstance().getTimeInMillis();
     }
 
     public String getText() {

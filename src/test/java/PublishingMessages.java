@@ -8,13 +8,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class PublishingMessages {
 
-    private Timeline timeline;
+    private User user;
 
     private Calendar testCalendar;
 
     @Before
     public void before() {
-        timeline = new Timeline();
+        TimelineData.initialize();
+
+        user = new User("Alice");
         testCalendar = Calendar.getInstance();
         SystemCalendar.override(testCalendar);
     }
@@ -23,10 +25,6 @@ public class PublishingMessages {
     public void timelineInitializedWithZeroMessages() {
         List<Message> messages = getPublishedMessages();
         assertThat(messages.size()).isEqualTo(0);
-    }
-
-    private List<Message> getPublishedMessages() {
-        return timeline.getMessages();
     }
 
     @Test
@@ -62,10 +60,14 @@ public class PublishingMessages {
     }
 
     private void publishMessage(String messageText1) {
-        timeline.publish(messageText1);
+        user.publish(messageText1);
     }
 
     private void setElapsedMinutes(int elapsedMinutes) {
         testCalendar.set(2020, 5, 31, 7, elapsedMinutes, 0);
+    }
+
+    private List<Message> getPublishedMessages() {
+        return user.getTimeline();
     }
 }
