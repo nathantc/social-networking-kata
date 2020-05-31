@@ -9,10 +9,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class PublishingMessage {
 
     private Timeline timeline;
+    private Calendar testCalendar;
 
     @Before
     public void before() {
         timeline = new Timeline();
+        testCalendar = Calendar.getInstance();
+        SystemCalendar.override(testCalendar);
     }
 
     @Test
@@ -47,20 +50,22 @@ public class PublishingMessage {
 
     @Test
     public void messagesReturnElapsedMinutesFromPublishedDate() {
-        Calendar testCalendar = Calendar.getInstance();
-        SystemCalendar.override(testCalendar);
+        setElapsedMinutes(15);
+        publishMessage("??");
+        setElapsedMinutes(25);
+        publishMessage("Are you going to the game?");
 
-        testCalendar.set(2020, 5, 31, 7, 15, 0);
-        String messageText1 = "??";
-        timeline.publish(messageText1);
-
-        testCalendar.set(2020, 5, 31, 7, 25, 0);
-        String messageText2 = "Are you going to the game?";
-        timeline.publish(messageText2);
-
-        testCalendar.set(2020, 5, 31, 7, 30, 0);
+        setElapsedMinutes(30);
         List<Message> messages = timeline.getMessage();
         assertThat(messages.get(0).getElapsedMinutes()).isEqualTo(5);
         assertThat(messages.get(1).getElapsedMinutes()).isEqualTo(15);
+    }
+
+    private void publishMessage(String messageText1) {
+        timeline.publish(messageText1);
+    }
+
+    private void setElapsedMinutes(int elapsedMinutes) {
+        testCalendar.set(2020, 5, 31, 7, elapsedMinutes, 0);
     }
 }
