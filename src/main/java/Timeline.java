@@ -10,7 +10,7 @@ public class Timeline {
         messages = new ArrayList();
     }
 
-    public List<Message> getMessage() {
+    public List<Message> getMessages() {
         return messages;
     }
 

@@ -6,7 +6,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class PublishingMessage {
+public class PublishingMessages {
 
     private Timeline timeline;
 
@@ -26,7 +26,7 @@ public class PublishingMessage {
     }
 
     private List<Message> getPublishedMessages() {
-        return timeline.getMessage();
+        return timeline.getMessages();
     }
 
     @Test
