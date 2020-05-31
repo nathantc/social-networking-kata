@@ -20,32 +20,31 @@ public class PublishingMessage {
 
     @Test
     public void timelineInitializedWithZeroMessages() {
-        List<Message> messages = timeline.getMessage();
+        List<Message> messages = getPublishedMessages();
         assertThat(messages.size()).isEqualTo(0);
+    }
+
+    private List<Message> getPublishedMessages() {
+        return timeline.getMessage();
     }
 
     @Test
     public void timelineReturnsPublishedMessage() {
-        String text = "I love the weather today.";
-        timeline.publish(text);
+        publishMessage("I love the weather today.");
 
-        List<Message> messages = timeline.getMessage();
+        List<Message> messages = getPublishedMessages();
         assertThat(messages.size()).isEqualTo(1);
-        assertThat(messages.get(0).getText()).isEqualTo(text);
+        assertThat(messages.get(0).getText()).isEqualTo("I love the weather today.");
     }
 
     @Test
     public void messagesReturnedInReverseChronologicalOrder() {
-        String messageText1 = "We lost!";
-        timeline.publish(messageText1);
-        String messageText2 = "Good game though!";
-        timeline.publish(messageText2);
+        publishMessage("We lost!");
+        publishMessage("Good game though!");
 
-        List<Message> messages = timeline.getMessage();
-        Message message2 = messages.get(0);
-        assertThat(message2.getText()).isEqualTo(messageText2);
-        Message message1 = messages.get(1);
-        assertThat(message1.getText()).isEqualTo(messageText1);
+        List<Message> messages = getPublishedMessages();
+        assertThat(messages.get(0).getText()).isEqualTo("Good game though!");
+        assertThat(messages.get(1).getText()).isEqualTo("We lost!");
     }
 
     @Test
@@ -56,7 +55,7 @@ public class PublishingMessage {
         publishMessage("Are you going to the game?");
 
         setElapsedMinutes(30);
-        List<Message> messages = timeline.getMessage();
+        List<Message> messages = getPublishedMessages();
         assertThat(messages.get(0).getElapsedMinutes()).isEqualTo(5);
         assertThat(messages.get(1).getElapsedMinutes()).isEqualTo(15);
     }
